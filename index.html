@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>马搏 Bo Ma · 测试开发 / 质量效能工程师</title>
+<meta name="description" content="马搏（Bo Ma）— 测试开发工程师 / 质量效能工程师。华东师范大学硕士，研究方向为基于大模型的移动应用自动化测试，Kea2 核心贡献者，成果发表于 FSE 2026、ASE 2026。">
+<meta name="author" content="马搏 Bo Ma">
+<meta name="theme-color" content="#4f46e5">
+
+<!-- Open Graph / 分享卡片 -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="马搏 Bo Ma · 测试开发 / 质量效能工程师">
+<meta property="og:description" content="移动端自动化测试 · 大模型赋能质量效能 · Kea2 核心贡献者">
+<meta property="og:url" content="https://majuzi123.github.io/">
+<meta property="og:image" content="https://majuzi123.github.io/assets/img/og-card.svg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<!-- 主题与语言预置：避免首屏闪烁 -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('bm-theme');
+    if (!t) {
+      t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+    var l = localStorage.getItem('bm-lang') || 'zh';
+    document.documentElement.setAttribute('lang', l);
+  } catch (e) {}
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "马搏",
+  "alternateName": "Bo Ma",
+  "jobTitle": "测试开发工程师 / 质量效能工程师",
+  "email": "mailto:boma@stu.ecnu.edu.cn",
+  "url": "https://majuzi123.github.io/",
+  "sameAs": ["https://github.com/majuzi123"],
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "华东师范大学" },
+    { "@type": "CollegeOrUniversity", "name": "Université Côte d'Azur" }
+  ],
+  "knowsAbout": ["移动应用自动化测试", "基于性质的测试", "大模型应用", "RAG", "GUI 测试"]
+}
+</script>
+</head>
+
+<body>
+
+<!-- ============ SVG icon sprite ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 8.2 5.6a1.4 1.4 0 0 0 1.6 0L21 7"/>
+    </symbol>
+    <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 .5a11.5 11.5 0 0 0-3.64 22.42c.58.1.79-.25.79-.55v-2.1c-3.2.7-3.88-1.37-3.88-1.37-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .96-.3 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.48 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.8.55A11.5 11.5 0 0 0 12 .5Z"/>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6.5 3h3l1.5 4-2 1.5a11.5 11.5 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3Z"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/>
+    </symbol>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M4 20h16"/>
+    </symbol>
+    <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+    </symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 14.4A8.5 8.5 0 0 1 9.6 4a8.5 8.5 0 1 0 10.4 10.4Z"/>
+    </symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M4 7h16M4 12h16M4 17h16"/>
+    </symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 4 2.5 8.5 12 13l9.5-4.5L12 4Z"/><path d="M6 10.8V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.2"/>
+    </symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.8" y="7.5" width="18.4" height="12.5" rx="2.2"/><path d="M8.5 7.5V5.8a1.8 1.8 0 0 1 1.8-1.8h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"/><path d="M2.8 12.5h18.4"/>
+    </symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 4h8v5a4 4 0 0 1-8 0V4Z"/><path d="M8 5.5H5.5A1.5 1.5 0 0 0 4 7v.5a3.5 3.5 0 0 0 3.5 3.5"/><path d="M16 5.5h2.5A1.5 1.5 0 0 1 20 7v.5a3.5 3.5 0 0 1-3.5 3.5"/><path d="M12 13v3.5"/><path d="M9 20h6"/><path d="M10 16.5h4l.6 3.5H9.4l.6-3.5Z"/>
+    </symbol>
+    <symbol id="i-patent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.5 3.5 20.5 9.5"/><path d="M13 5 19 11"/><path d="M12 6.5 6.8 11.7a2 2 0 0 0-.5.9l-1 4.2a1 1 0 0 0 1.2 1.2l4.2-1a2 2 0 0 0 .9-.5L17.5 12"/>
+    </symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="2.8" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0"/><path d="M12 18v3M8.5 21h7"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m12 3.5 2.6 5.6 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.4 9.9l6-.8L12 3.5Z"/>
+    </symbol>
+    <symbol id="i-robot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3.5" y="7.5" width="17" height="11" rx="3"/><path d="M12 3.5v4"/><circle cx="9" cy="13" r="1.3"/><circle cx="15" cy="13" r="1.3"/><path d="M8 18.5v2M16 18.5v2"/>
+    </symbol>
+    <symbol id="i-bug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="7" y="7.5" width="10" height="11" rx="5"/><path d="M9.5 7.5 8 4.8M14.5 7.5 16 4.8M7 11H3.5M17 11h3.5M7 15H4M17 15h3M9.5 18.5 8 21M14.5 18.5 16 21"/>
+    </symbol>
+    <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m8.5 8.5-4 3.5 4 3.5"/><path d="m15.5 8.5 4 3.5-4 3.5"/><path d="m13.5 5.5-3 13"/>
+    </symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/><path d="M3.2 9.5h17.6M3.2 14.5h17.6"/><path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>
+    </symbol>
+    <symbol id="i-globe-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/><path d="M3.2 9.5h17.6M3.2 14.5h17.6"/><path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>
+    </symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ Navigation ============ -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true">马</span>
+      <span>马搏<span lang="zh"> · Bo Ma</span></span>
+    </a>
+
+    <nav class="nav__links" id="navLinks" aria-label="主导航">
+      <a href="#about"><span lang="zh">关于</span><span lang="en">About</span></a>
+      <a href="#education"><span lang="zh">教育</span><span lang="en">Education</span></a>
+      <a href="#research"><span lang="zh">研究</span><span lang="en">Research</span></a>
+      <a href="#projects"><span lang="zh">项目</span><span lang="en">Projects</span></a>
+      <a href="#experience"><span lang="zh">经历</span><span lang="en">Experience</span></a>
+      <a href="#skills"><span lang="zh">技能</span><span lang="en">Skills</span></a>
+      <a href="#contact"><span lang="zh">联系</span><span lang="en">Contact</span></a>
+    </nav>
+
+    <div class="nav__tools">
+      <button class="icon-btn" id="langToggle" type="button" aria-label="切换语言 / Switch language" title="切换语言 / Switch language">
+        <span id="langLabel">EN</span>
+      </button>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="切换主题 / Toggle theme" title="切换主题 / Toggle theme">
+        <svg class="i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        <svg class="i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
+      <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="菜单" aria-expanded="false">
+        <svg aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" id="about">
+    <div class="wrap hero__grid">
+      <div>
+        <span class="eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          <span lang="zh">腾讯微信支付 · 后台开发实习中</span>
+          <span lang="en">Backend Dev Intern · Tencent WeChat Pay</span>
+        </span>
+
+        <h1>
+          马搏
+          <span class="en-name">Bo Ma</span>
+        </h1>
+
+        <p class="hero__roles">
+          <span lang="zh">测试开发工程师 / 质量效能工程师</span>
+          <span lang="en">Test Development Engineer / Quality Engineering</span>
+          <span lang="zh" style="font-weight:500;opacity:.9">移动端自动化测试 · 大模型赋能质量效能</span>
+          <span lang="en" style="font-weight:500;opacity:.9">Mobile Automation Testing · LLM for Software Quality</span>
+        </p>
+
+        <p class="hero__lede">
+          <span lang="zh">华东师范大学软件科学与技术专业硕士研究生，研究方向为「基于大模型的移动应用自动化测试（功能性错误检测）」。现于腾讯微信支付负责<strong>基于性质的测试</strong>与<strong>大模型赋能的质量效能体系</strong>搭建；作为核心贡献者参与开源框架 Kea2，工具已被微信、华为、小米、OPay 等企业的生产流程采用，相关成果发表于 FSE 2026、ASE 2026 等 CCF-A 类会议。</span>
+          <span lang="en">Master's candidate in Software Science and Technology at East China Normal University, researching LLM-driven automated testing for mobile apps (functional bug detection). Currently interning at Tencent WeChat Pay on property-based testing and an LLM-powered quality engineering system. Core contributor to the open-source framework Kea2, adopted in production by WeChat, Huawei, Xiaomi and OPay, with work published at FSE 2026 and ASE 2026 (CCF-A).</span>
+        </p>
+
+        <div class="hero__meta">
+          <a href="mailto:boma@stu.ecnu.edu.cn">
+            <svg aria-hidden="true"><use href="#i-mail"/></svg>boma@stu.ecnu.edu.cn
+          </a>
+          <a href="https://github.com/majuzi123" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-github"/></svg>github.com/majuzi123
+          </a>
+          <span><svg aria-hidden="true"><use href="#i-phone"/></svg>182 3498 5550</span>
+          <span>
+            <svg aria-hidden="true"><use href="#i-pin"/></svg>
+            <span lang="zh">华东 / 华南 / 北京</span>
+            <span lang="en">East / South China · Beijing</span>
+          </span>
+        </div>
+
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="assets/files/MaBo-CV.pdf" download>
+            <svg aria-hidden="true"><use href="#i-download"/></svg>
+            <span lang="zh">下载简历 PDF</span><span lang="en">Download CV</span>
+          </a>
+          <a class="btn btn--ghost" href="https://github.com/majuzi123" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-github"/></svg>GitHub
+          </a>
+          <a class="btn btn--ghost" href="mailto:boma@stu.ecnu.edu.cn">
+            <svg aria-hidden="true"><use href="#i-mail"/></svg>
+            <span lang="zh">发送邮件</span><span lang="en">Email me</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="avatar-card">
+        <div class="avatar">
+          <div class="avatar__monogram" aria-label="马搏">马</div>
+        </div>
+        <div class="avatar-card__badge">
+          <svg aria-hidden="true"><use href="#i-cap"/></svg>
+          <span lang="zh">华东师大 · 硕士在读</span>
+          <span lang="en">ECNU · MSc Candidate</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 关键数据 -->
+    <div class="wrap">
+      <div class="stats reveal">
+        <div class="stat">
+          <div class="stat__num">281 ★</div>
+          <div class="stat__label">
+            <span lang="zh">Kea2 开源 Stars，60K+ 次下载</span>
+            <span lang="en">GitHub stars on Kea2, 60K+ downloads</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">41</div>
+          <div class="stat__label">
+            <span lang="zh">微信 3 个版本中发现的逃逸错误</span>
+            <span lang="en">escaped bugs found across 3 WeChat releases</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">92.6%</div>
+          <div class="stat__label">
+            <span lang="zh">LLM 自动生成性质断言有效率（912/985）</span>
+            <span lang="en">valid rate of LLM-generated property assertions</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">4</div>
+          <div class="stat__label">
+            <span lang="zh">CCF-A / CCF-B 类会议论文</span>
+            <span lang="en">papers at CCF-A / CCF-B venues</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Education ============ -->
+  <section id="education">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-head__kicker">
+          <span lang="zh">教育背景</span><span lang="en">Education</span>
+        </span>
+        <h2>
+          <span lang="zh">扎实的软件工程与学术训练</span>
+          <span lang="en">Academic Training in Software Engineering</span>
+        </h2>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-card__top">
+              <span class="tl-card__org">
+                <span lang="zh">华东师范大学（985 / 211 / 双一流）</span>
+                <span lang="en">East China Normal University (985 / 211 / Double First-Class)</span>
+              </span>
+              <span class="tl-card__date">2024.09 – 2027.06</span>
+            </div>
+            <div class="tl-card__role">
+              <span lang="zh">软件科学与技术 · 硕士</span>
+              <span lang="en">MSc in Software Science and Technology</span>
+            </div>
+            <p class="tl-card__note">
+              <span lang="zh">🏅 优秀学业一等奖学金</span>
+              <span lang="en">🏅 Excellent Academic Performance Scholarship (First Prize)</span>
+            </p>
+            <p class="tl-card__note">
+              <span lang="zh">研究方向：基于大模型的移动应用自动化测试（功能性错误检测）</span>
+              <span lang="en">Research: LLM-based automated testing for mobile apps (functional bug detection)</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-card__top">
+              <span class="tl-card__org">
+                <span lang="zh">法国蔚蓝海岸大学（Université Côte d'Azur）</span>
+                <span lang="en">Université Côte d'Azur, France</span>
+              </span>
+              <span class="tl-card__date">2025.09 – 2026.07</span>
+            </div>
+            <div class="tl-card__role">
+              <span lang="zh">计算机科学 · 联合培养双学位硕士</span>
+              <span lang="en">Joint Dual-Degree MSc in Computer Science</span>
+            </div>
+            <p class="tl-card__note">
+              <span lang="zh">🏅 国家留学基金委（CSC）奖学金</span>
+              <span lang="en">🏅 China Scholarship Council (CSC) Fellowship</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-card__top">
+              <span class="tl-card__org">
+                <span lang="zh">华东师范大学（985 / 211 / 双一流）</span>
+                <span lang="en">East China Normal University (985 / 211 / Double First-Class)</span>
+              </span>
+              <span class="tl-card__date">2020.09 – 2024.07</span>
+            </div>
+            <div class="tl-card__role">
+              <span lang="zh">软件工程 · 学士</span>
+              <span lang="en">BEng in Software Engineering</span>
+            </div>
+            <p class="tl-card__note">
+              <span lang="zh">🏅 校优秀毕业生、优秀学生</span>
+              <span lang="en">🏅 Outstanding Graduate &amp; Outstanding Student</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Research / Publications ============ -->
+  <section id="research">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-head__kicker">
+          <span lang="zh">研究成果</span><span lang="en">Publications</span>
+        </span>
+        <h2>
+          <span lang="zh">4 篇 CCF-A / CCF-B 类会议论文</span>
+          <span lang="en">Four Papers at CCF-A / CCF-B Venues</span>
+        </h2>
+        <p>
+          <span lang="zh">研究主线为移动应用的功能性错误检测：从基于性质的测试框架，到用大模型自动生成与修复性质断言。</span>
+          <span lang="en">Research thread: functional bug detection for mobile apps — from property-based testing frameworks to LLM-driven property generation and repair.</span>
+        </p>
+      </div>
+
+      <div class="pubs">
+        <article class="pub reveal">
+          <div class="pub__rank">
+            <span class="tag tag--a" title="CCF-A">CCF-A</span>
+            <span class="tag tag--venue">FSE 2026</span>
+          </div>
+          <div>
+            <h3 class="pub__title">Kea2: Practical Property-based Testing for Mobile Apps</h3>
+            <p class="pub__authors">Xixian Liang, Cheng Peng, <strong>Bo Ma</strong>, Xiangchen Shen, Yiheng Xiong, Ting Su</p>
+            <p class="pub__venue">
+              <span lang="zh">ACM SIGSOFT 国际软件工程基础会议（FSE 2026）</span>
+              <span lang="en">ACM SIGSOFT International Conference on the Foundations of Software Engineering (FSE 2026)</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="pub reveal">
+          <div class="pub__rank">
+            <span class="tag tag--a" title="CCF-A">CCF-A</span>
+            <span class="tag tag--venue">ASE 2026</span>
+          </div>
+          <div>
+            <h3 class="pub__title">PropGen: Automated Property Generation for Property-Based Testing of Mobile Apps</h3>
+            <p class="pub__authors">Yiheng Xiong, Shiwen Song, <strong>Bo Ma</strong>, Ting Su, Xiaofei Xie</p>
+            <p class="pub__venue">
+              <span lang="zh">IEEE/ACM 国际自动化软件工程会议（ASE 2026）</span>
+              <span lang="en">IEEE/ACM International Conference on Automated Software Engineering (ASE 2026)</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="pub reveal">
+          <div class="pub__rank">
+            <span class="tag tag--b" title="CCF-B">CCF-B</span>
+            <span class="tag tag--venue">ICASSP 2026</span>
+          </div>
+          <div>
+            <h3 class="pub__title">VKT+: Enhancing Visual Knowledge Tracing via Neural Network Architecture Search</h3>
+            <p class="pub__authors"><strong>Bo Ma</strong>, Yang Yu, Long You, Liangyu Chen</p>
+            <p class="pub__venue">
+              <span lang="zh">IEEE 国际声学、语音与信号处理会议（ICASSP 2026）</span>
+              <span lang="en">IEEE Int'l Conference on Acoustics, Speech and Signal Processing (ICASSP 2026)</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="pub reveal">
+          <div class="pub__rank">
+            <span class="tag tag--b" title="CCF-B">CCF-B</span>
+            <span class="tag tag--venue">CogSci 2025</span>
+          </div>
+          <div>
+            <h3 class="pub__title">Enhancing Cognitive Game Tracing via Diverse Information and Time-aware Modeling</h3>
+            <p class="pub__authors">Yang Yu, <strong>Bo Ma</strong>, Liangyu Chen, Mingsong Chen</p>
+            <p class="pub__venue">
+              <span lang="zh">认知科学学会年会（CogSci 2025）</span>
+              <span lang="en">Annual Meeting of the Cognitive Science Society (CogSci 2025)</span>
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Projects ============ -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-head__kicker">
+          <span lang="zh">项目经历</span><span lang="en">Projects</span>
+        </span>
+        <h2>
+          <span lang="zh">从开源工具到生产落地</span>
+          <span lang="en">From Open-Source Tooling to Production Impact</span>
+        </h2>
+        <p>
+          <span lang="zh">围绕移动端质量保障，构建被真实企业生产流程采用的测试工具与智能化方法。</span>
+          <span lang="en">Testing tools and intelligent methods for mobile quality assurance, adopted in real production pipelines.</span>
+        </p>
+      </div>
+
+      <div class="projects">
+
+        <!-- Kea2 -->
+        <article class="project reveal">
+          <div class="project__head">
+            <div class="project__top">
+              <h3 class="project__name">
+                <span lang="zh">Kea2 — 基于性质的移动端功能测试框架</span>
+                <span lang="en">Kea2 — Practical Property-Based Testing for Mobile Apps</span>
+              </h3>
+              <span class="project__date">2025.05 – <span lang="zh">至今</span><span lang="en">Present</span></span>
+            </div>
+            <div class="project__role">
+              <span lang="zh">核心贡献者（Core Contributor）</span>
+              <span lang="en">Core Contributor</span>
+              <span class="sep">·</span>
+              <span lang="zh">团队成果发表于 CCF-A FSE 2026</span>
+              <span lang="en">published at FSE 2026 (CCF-A)</span>
+            </div>
+            <div class="project__links">
+              <a class="chip-link" href="https://github.com/ecnusse/Kea2" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-github"/></svg>ecnusse/Kea2
+              </a>
+              <span class="chip-link"><svg aria-hidden="true"><use href="#i-star"/></svg>281 Stars · 60K+ Downloads</span>
+            </div>
+          </div>
+
+          <div class="project__body">
+            <p class="project__summary">
+              <span lang="zh">Kea2 融合 <strong>GUI 模糊测试</strong>与<strong>性质检查</strong>，解决传统脚本测试覆盖浅、无功能断言的痛点。已在 Markor、AnkiDroid、Amaze 等开源应用上发现 <span class="metric metric--hl">8 个未知缺陷</span>，被微信、OPay、海尔、华为、小米、微信支付等企业采用；在微信 3 个版本中发现 <span class="metric metric--hl">41 个逃逸错误</span>，被 OPay 作为 POS 机默认回归测试工具，并已集成至华为 DevEco Studio。</span>
+              <span lang="en">Kea2 fuses <strong>GUI fuzzing</strong> with <strong>property checking</strong>, fixing the shallow coverage and missing functional assertions of scripted testing. It found <span class="metric metric--hl">8 previously unknown bugs</span> in Markor, AnkiDroid and Amaze; adopted by WeChat, OPay, Haier, Huawei, Xiaomi and WeChat Pay; surfaced <span class="metric metric--hl">41 escaped bugs</span> across 3 WeChat releases; shipped as OPay's default POS regression tool and integrated into Huawei DevEco Studio.</span>
+            </p>
+
+            <p class="project__sublabel">
+              <span lang="zh">个人贡献</span><span lang="en">My Contributions</span>
+            </p>
+            <ul>
+              <li>
+                <span lang="zh"><strong>静态选择器检查机制</strong>：在 Uiautomator2 基础上实现静态选择器检查，将移动端与 PC 的网络请求转化为本地静态组件树匹配，解决性能瓶颈，单次判定耗时<span class="metric">从秒级降至毫秒级</span>。</span>
+                <span lang="en"><strong>Static selector checking</strong>: built on Uiautomator2, converts device–PC network round-trips into local static widget-tree matching, cutting per-check latency <span class="metric">from seconds to milliseconds</span>.</span>
+              </li>
+              <li>
+                <span lang="zh"><strong>控件 / 树级别黑名单算法</strong>：在 Fastbot 基础上设计并实现控件级与树级黑名单，遍历过程中可屏蔽指定控件或区域并附加条件，将屏蔽粒度由传统 JSON 的「Activity 级」<span class="metric">精准提升至「元素级」</span>，生产实践中几乎覆盖所有屏蔽场景。</span>
+                <span lang="en"><strong>Widget / tree-level blacklisting</strong>: designed on top of Fastbot to block specific widgets or regions conditionally during traversal, refining blocking granularity <span class="metric">from Activity-level JSON to element level</span> — covering virtually every real-world scenario.</span>
+              </li>
+              <li>
+                <span lang="zh"><strong>FBM Merge 模型合并</strong>：支持分布式多机并行测试，聚合 Fastbot 模型实现训练加速与模型共享，在不影响数据的前提下使模型文件<span class="metric">平均体积减少约 90%</span>，大幅降低存储开销。</span>
+                <span lang="en"><strong>FBM Merge</strong>: model merging for distributed multi-device parallel testing — aggregates Fastbot models for faster training and sharing, shrinking model files by <span class="metric">~90% on average</span> with no data loss.</span>
+              </li>
+            </ul>
+
+            <div class="stack">
+              <span>Python</span><span>Uiautomator2</span><span>Fastbot</span><span>Unittest</span><span>Android</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- PropGen -->
+        <article class="project reveal">
+          <div class="project__head">
+            <div class="project__top">
+              <h3 class="project__name">
+                <span lang="zh">基于大模型的移动端 PBT 性质自动断言生成与修复系统</span>
+                <span lang="en">LLM-Driven Property Assertion Generation &amp; Repair for Mobile PBT</span>
+              </h3>
+              <span class="project__date">2026.01 – <span lang="zh">至今</span><span lang="en">Present</span></span>
+            </div>
+            <div class="project__role">
+              <span lang="zh">已发表于 CCF-A 类会议 ASE 2026</span>
+              <span lang="en">Published at ASE 2026 (CCF-A)</span>
+            </div>
+          </div>
+
+          <div class="project__body">
+            <p class="project__summary">
+              <span lang="zh">针对 PBT 中性质断言依赖人工编写、自动生成易出错的痛点，设计利用 LLM 的「轨迹探索 → 自动性质推导 → 可执行测试生成 → 反馈修复」闭环，生成的断言<span class="metric">可直接由 Kea2 框架加载执行</span>，具备生产级落地能力。</span>
+              <span lang="en">Property assertions in PBT are hand-written and error-prone when auto-generated. I designed an LLM-driven closed loop — <em>trajectory exploration → property inference → executable test generation → feedback-based repair</em> — whose assertions <span class="metric">load and run directly in Kea2</span>, ready for production.</span>
+            </p>
+
+            <p class="project__sublabel">
+              <span lang="zh">核心成果</span><span lang="en">Key Results</span>
+            </p>
+            <ul>
+              <li>
+                <span lang="zh"><strong>自动断言生成</strong>：从真实 GUI 交互轨迹自动推导可验证的 PBT 性质断言（功能前后置条件与交互流程），<span class="metric">无需人工编写断言</span>。</span>
+                <span lang="en"><strong>Automatic assertion generation</strong>: infers verifiable PBT properties (pre/post-conditions and interaction flows) from real GUI traces — <span class="metric">no hand-written assertions</span>.</span>
+              </li>
+              <li>
+                <span lang="zh"><strong>不精确断言自动修复</strong>：利用测试执行反馈让 LLM 自动扫描并迭代修正不稳定断言，成功修复 <span class="metric metric--hl">118/127 条（修复率 92.9%）</span>。</span>
+                <span lang="en"><strong>Automatic repair of imprecise assertions</strong>: execution feedback drives the LLM to iteratively fix flaky assertions — <span class="metric metric--hl">118/127 repaired (92.9%)</span>.</span>
+              </li>
+              <li>
+                <span lang="zh"><strong>规模评测</strong>：在 12 个真实开源 Android 应用上识别 <span class="metric">1,210 个有效功能</span>，自动生成 985 条性质断言，其中 912 条有效（<span class="metric">有效率 92.6%</span>），发现 <span class="metric metric--hl">25 个先前未知的功能性缺陷</span>。</span>
+                <span lang="en"><strong>Large-scale evaluation</strong>: across 12 real open-source Android apps, identified <span class="metric">1,210 valid features</span>, generated 985 property assertions (912 valid, <span class="metric">92.6%</span>), and uncovered <span class="metric metric--hl">25 previously unknown functional bugs</span>.</span>
+              </li>
+            </ul>
+
+            <div class="stack">
+              <span>LLM</span><span>Prompt Engineering</span><span>Property-Based Testing</span><span>Kea2</span><span>Python</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- HMAutoDroid -->
+        <article class="project reveal">
+          <div class="project__head">
+            <div class="project__top">
+              <h3 class="project__name">HMAutoDroid<span lang="zh">：基于 LLM 的 HarmonyOS 自动化任务执行系统（GUI Agent）</span><span lang="en"> — LLM-Driven Task Automation for HarmonyOS (GUI Agent)</span></h3>
+              <span class="project__date">2025.01 – 2025.03</span>
+            </div>
+            <div class="project__role">
+              <span lang="zh">独立开发 · 基于 HMDroidbot 鸿蒙原生操控能力，引入并适配 AutoDroid 的 LLM 任务规划思想</span>
+              <span lang="en">Solo project · adapted AutoDroid's LLM task-planning onto HMDroidbot's native HarmonyOS control</span>
+            </div>
+            <div class="project__links">
+              <a class="chip-link" href="https://github.com/majuzi123/HMAutoDroidbot" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-github"/></svg>majuzi123/HMAutoDroidbot
+              </a>
+            </div>
+          </div>
+
+          <div class="project__body">
+            <p class="project__summary">
+              <span lang="zh">针对 HarmonyOS NEXT 早期自动化测试方案几乎空白、业界鲜见公开 LLM 驱动测试系统的现状，构建了面向鸿蒙的智能任务执行系统。</span>
+              <span lang="en">At a time when HarmonyOS NEXT had almost no automated testing tooling and no public LLM-driven test system existed, I built an intelligent task-execution system for HarmonyOS.</span>
+            </p>
+
+            <p class="project__sublabel">
+              <span lang="zh">核心成果</span><span lang="en">Key Results</span>
+            </p>
+            <ul>
+              <li>
+                <span lang="zh">将 AutoDroid 的 Android 依赖<span class="metric">全部替换为鸿蒙原生组件</span>（HDC、hidumper、hmdriver2、hap 包管理），重构任务规划链路，使 LLM 能直接驱动鸿蒙 GUI 操作序列，绕过 Uiautomator2 / Appium 不可用限制。</span>
+                <span lang="en">Replaced every Android dependency of AutoDroid with <span class="metric">native HarmonyOS components</span> (HDC, hidumper, hmdriver2, HAP packaging) and rebuilt the planning pipeline so LLMs drive HarmonyOS GUI sequences directly — bypassing the unavailable Uiautomator2 / Appium stack.</span>
+              </li>
+              <li>
+                <span lang="zh">在 15 个 HarmonyOS 开源应用上执行 33 个跨模块测试任务：<span class="metric">平均完成进度 79.66%</span>，完全完成率 <span class="metric metric--hl">69.70%（23/33）</span>；社交 / 消息通讯模块完全完成率 <span class="metric">100%</span>，低复杂度任务平均完成进度 <span class="metric">93.10%</span>。</span>
+                <span lang="en">Executed 33 cross-module tasks on 15 open-source HarmonyOS apps: <span class="metric">79.66% average task progress</span>, <span class="metric metric--hl">69.70% full completion (23/33)</span>; <span class="metric">100%</span> full completion on social/messaging modules and <span class="metric">93.10%</span> average progress on low-complexity tasks.</span>
+              </li>
+            </ul>
+
+            <div class="stack">
+              <span>HarmonyOS NEXT</span><span>HDC</span><span>hmdriver2</span><span>LLM Agent</span><span>Python</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Experience ============ -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-head__kicker">
+          <span lang="zh">实习经历</span><span lang="en">Experience</span>
+        </span>
+        <h2>
+          <span lang="zh">工业界与学术界双重实践</span>
+          <span lang="en">Industry &amp; Research Practice</span>
+        </h2>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-card__top">
+              <span class="tl-card__org">
+                <span lang="zh">腾讯 · 微信支付</span>
+                <span lang="en">Tencent · WeChat Pay</span>
+              </span>
+              <span class="tl-card__date"><span lang="zh">至今</span><span lang="en">Present</span></span>
+            </div>
+            <div class="tl-card__role">
+              <span lang="zh">后台开发实习生</span>
+              <span lang="en">Backend Development Intern</span>
+            </div>
+            <ul>
+              <li>
+                <span lang="zh">负责<strong>基于性质的测试</strong>（Property-Based Testing）在业务侧的落地。</span>
+                <span lang="en">Driving adoption of <strong>property-based testing</strong> in production business scenarios.</span>
+              </li>
+              <li>
+                <span lang="zh">搭建<strong>大模型赋能的质量效能体系</strong>，将 LLM 能力引入质量保障流程。</span>
+                <span lang="en">Building an <strong>LLM-powered quality engineering system</strong> integrated into the QA workflow.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-card__top">
+              <span class="tl-card__org">
+                <span lang="zh">法国 I3S 实验室（CNRS / 蔚蓝海岸大学 / Inria 联合研究单位）</span>
+                <span lang="en">I3S Laboratory, France (CNRS / Université Côte d'Azur / Inria)</span>
+              </span>
+              <span class="tl-card__date">2026.03 – 2026.07</span>
+            </div>
+            <div class="tl-card__role">
+              <span lang="zh">大模型系统研发实习生 · 独立负责 RAG 系统从 0 到 1</span>
+              <span lang="en">LLM Systems R&amp;D Intern · owned a RAG system end-to-end</span>
+            </div>
+            <ul>
+              <li>
+                <span lang="zh">面向校园多语言智能问答场景，独立搭建模块化 <strong>Hybrid RAG</strong> 框架（Python + LangChain），设计插件化查询扩展接口与集中配置管理系统，支持检索链路全轨迹追踪与自动化评测。</span>
+                <span lang="en">Built a modular <strong>Hybrid RAG</strong> framework (Python + LangChain) for multilingual campus Q&amp;A, with pluggable query-expansion interfaces, centralized configuration, full retrieval-trace tracking and automated evaluation.</span>
+              </li>
+              <li>
+                <span lang="zh">设计混合检索流水线：向量检索与 BM25 经 <strong>Weighted RRF</strong> 融合，结合 <strong>Cross-Encoder 双通道重排</strong> + <strong>Dynamic-K</strong> 上下文选择策略，并引入索引持久化与哈希校验机制，消除重复重建开销。</span>
+                <span lang="en">Designed a hybrid retrieval pipeline: vector search fused with BM25 via <strong>Weighted RRF</strong>, <strong>Cross-Encoder</strong> two-channel reranking and <strong>Dynamic-K</strong> context selection, plus index persistence with hash validation to eliminate rebuild cost.</span>
+              </li>
+              <li>
+                <span lang="zh">搭建基于 <strong>RAGAS</strong> 的端到端检索评分自动化 workflow；实现语义缓存（相似度阈值 + TTL）与多层对话记忆（短期上下文 + 长期用户事实存储）。系统调优后 <span class="metric metric--hl">Hit@5 从 63.39% 提升至 86.11%（+22.72pp）</span>，最优配置 <span class="metric">Hit@8 达 100%</span>。</span>
+                <span lang="en">Built a <strong>RAGAS</strong>-based end-to-end automated retrieval scoring workflow; added semantic caching (similarity threshold + TTL) and multi-layer conversational memory (short-term context + long-term user facts). After tuning, <span class="metric metric--hl">Hit@5 rose from 63.39% to 86.11% (+22.72pp)</span>, with the best config reaching <span class="metric">100% Hit@8</span>.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Honors & Awards ============ -->
+  <section id="honors">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-head__kicker">
+          <span lang="zh">荣誉与成果</span><span lang="en">Honors &amp; Awards</span>
+        </span>
+        <h2>
+          <span lang="zh">竞赛、专利与学术服务</span>
+          <span lang="en">Competitions, Patent &amp; Academic Service</span>
+        </h2>
+      </div>
+
+      <div class="awards">
+        <div class="award reveal">
+          <div class="award__icon"><svg aria-hidden="true"><use href="#i-trophy"/></svg></div>
+          <h3><span lang="zh">竞赛奖项</span><span lang="en">Competitions</span></h3>
+          <p>
+            <span lang="zh">2025 中国软件大会原型系统竞赛<strong>二等奖</strong></span>
+            <span lang="en">2025 China Software Conference Prototype System Competition — <strong>2nd Prize</strong></span>
+          </p>
+          <p>
+            <span lang="zh">挑战杯华东师大校内预选赛<strong>特等奖</strong></span>
+            <span lang="en">"Challenge Cup" ECNU Preliminary — <strong>Grand Prize</strong></span>
+          </p>
+          <p>
+            <span lang="zh">全国大学生计算机系统能力大赛<strong>三等奖</strong></span>
+            <span lang="en">National Undergraduate Computer System Capability Contest — <strong>3rd Prize</strong></span>
+          </p>
+        </div>
+
+        <div class="award reveal">
+          <div class="award__icon"><svg aria-hidden="true"><use href="#i-patent"/></svg></div>
+          <h3><span lang="zh">发明专利</span><span lang="en">Patent</span></h3>
+          <p>
+            <span lang="zh">一种基于功能性质的移动应用脚本与遍历测试协同方法（发明专利）</span>
+            <span lang="en">A Collaboration Method for Script-Based and Traversal Testing of Mobile Apps Based on Functional Properties (invention patent)</span>
+          </p>
+        </div>
+
+        <div class="award reveal">
+          <div class="award__icon"><svg aria-hidden="true"><use href="#i-mic"/></svg></div>
+          <h3><span lang="zh">特邀报告</span><span lang="en">Invited Talk</span></h3>
+          <p>
+            <span lang="zh">上海交通大学 <strong>Let's GoSSIP 软件安全暑期学校</strong>（workshop）2025 讲师</span>
+            <span lang="en">Lecturer at <strong>Let's GoSSIP Software Security Summer School</strong> (workshop), Shanghai Jiao Tong University, 2025</span>
+          </p>
+        </div>
+
+        <div class="award reveal">
+          <div class="award__icon"><svg aria-hidden="true"><use href="#i-star"/></svg></div>
+          <h3><span lang="zh">荣誉与奖学金</span><span lang="en">Honors &amp; Scholarships</span></h3>
+          <p>
+            <span lang="zh">国家留学基金委奖学金（<strong>CSC</strong>）</span>
+            <span lang="en">China Scholarship Council (<strong>CSC</strong>) Fellowship</span>
+          </p>
+          <p>
+            <span lang="zh">华东师大优秀毕业生、优秀学生、优秀学业一等奖学金</span>
+            <span lang="en">ECNU Outstanding Graduate, Outstanding Student, Academic Excellence Scholarship (First Prize)</span>
+          </p>
+          <p>
+            <span lang="zh">国家励志奖学金</span>
+            <span lang="en">National Endeavor Scholarship</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Skills ============ -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-head__kicker">
+          <span lang="zh">专业技能</span><span lang="en">Skills</span>
+        </span>
+        <h2>
+          <span lang="zh">测试工具链 × 大模型工程</span>
+          <span lang="en">Testing Toolchain × LLM Engineering</span>
+        </h2>
+      </div>
+
+      <div class="skills">
+        <div class="skill reveal">
+          <h3><svg aria-hidden="true"><use href="#i-bug"/></svg>
+            <span lang="zh">自动化测试</span><span lang="en">Automation Testing</span>
+          </h3>
+          <p>
+            <span lang="zh">熟练使用 Uiautomator2 及 Android 动态测试；深度集成并扩展 Fastbot（SARSA N-Step RL 遍历策略），具备移动端智能化测试工具实战经验。</span>
+            <span lang="en">Proficient with Uiautomator2 and Android dynamic testing; deeply integrated and extended Fastbot (SARSA N-Step RL traversal), with hands-on experience in intelligent mobile testing tools.</span>
+          </p>
+          <div class="skill__tags">
+            <span>Uiautomator2</span><span>Fastbot</span><span>GUI Fuzzing</span><span>Property-Based Testing</span><span>Android</span>
+          </div>
+        </div>
+
+        <div class="skill reveal">
+          <h3><svg aria-hidden="true"><use href="#i-robot"/></svg>
+            <span lang="zh">大模型应用</span><span lang="en">LLM Applications</span>
+          </h3>
+          <p>
+            <span lang="zh">熟练使用 LangChain 搭建 RAG 与 AI Agent 系统，具备 Prompt Engineering 及 LLM 输出质量评测经验；熟悉 LLM 鲁棒性风险评估与对抗攻击防御思路。</span>
+            <span lang="en">Builds RAG and AI Agent systems with LangChain; experienced in prompt engineering and LLM output quality evaluation; familiar with LLM robustness risk assessment and adversarial defense.</span>
+          </p>
+          <div class="skill__tags">
+            <span>LangChain</span><span>RAG</span><span>AI Agent</span><span>Prompt Engineering</span><span>RAGAS</span><span>LLM Evaluation</span>
+          </div>
+        </div>
+
+        <div class="skill reveal">
+          <h3><svg aria-hidden="true"><use href="#i-code"/></svg>
+            <span lang="zh">编程与工程化</span><span lang="en">Programming &amp; Engineering</span>
+          </h3>
+          <p>
+            <span lang="zh">熟练使用 Python；熟悉 Git，具备 CI/CD 自动化测试流程搭建经验。</span>
+            <span lang="en">Proficient in Python; comfortable with Git and experienced in building CI/CD automated testing pipelines.</span>
+          </p>
+          <div class="skill__tags">
+            <span>Python</span><span>Git</span><span>CI/CD</span><span>Unittest</span><span>Linux</span>
+          </div>
+        </div>
+
+        <div class="skill reveal">
+          <h3><svg aria-hidden="true"><use href="#i-globe-sm"/></svg>
+            <span lang="zh">语言能力</span><span lang="en">Languages</span>
+          </h3>
+          <p>
+            <span lang="zh">中文（母语）；英语可作为工作语言（法国 I3S 实验室全英文工作环境）。</span>
+            <span lang="en">Chinese (native); English as a working language (fully English-speaking environment at I3S, France).</span>
+          </p>
+          <div class="skill__tags">
+            <span>中文 · Native</span><span>English · Working Proficiency</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Contact ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact__box reveal">
+        <h2>
+          <span lang="zh">一起聊聊质量效能与智能化测试</span>
+          <span lang="en">Let's Talk About Quality Engineering</span>
+        </h2>
+        <p>
+          <span lang="zh">无论是实习与工作机会、开源协作，还是学术研究交流，都欢迎随时联系我。</span>
+          <span lang="en">Open to internships and full-time roles, open-source collaboration, and research exchange — feel free to reach out.</span>
+        </p>
+
+        <div class="contact__grid">
+          <a class="contact__item" href="mailto:boma@stu.ecnu.edu.cn">
+            <svg aria-hidden="true"><use href="#i-mail"/></svg>
+            <b>boma@stu.ecnu.edu.cn</b>
+            <span><span lang="zh">邮箱</span><span lang="en">Email</span></span>
+          </a>
+          <a class="contact__item" href="https://github.com/majuzi123" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-github"/></svg>
+            <b>majuzi123</b>
+            <span>GitHub</span>
+          </a>
+          <a class="contact__item" href="tel:+8618234985550">
+            <svg aria-hidden="true"><use href="#i-phone"/></svg>
+            <b>182 3498 5550</b>
+            <span><span lang="zh">电话</span><span lang="en">Phone</span></span>
+          </a>
+          <div class="contact__item">
+            <svg aria-hidden="true"><use href="#i-pin"/></svg>
+            <b><span lang="zh">华东 / 华南 / 北京</span><span lang="en">East / South China · Beijing</span></b>
+            <span><span lang="zh">意向城市</span><span lang="en">Preferred Locations</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <span>© <span id="year">2026</span> <span lang="zh">马搏</span><span lang="en">Bo Ma</span> ·
+      <span lang="zh">基于 GitHub Pages 构建</span><span lang="en">Built with GitHub Pages</span>
+    </span>
+    <span>
+      <a href="assets/files/MaBo-CV.pdf" download>
+        <span lang="zh">简历 PDF</span><span lang="en">CV</span>
+      </a> ·
+      <a href="https://github.com/majuzi123" target="_blank" rel="noopener">GitHub</a> ·
+      <a href="#top"><span lang="zh">回到顶部</span><span lang="en">Back to top</span></a>
+    </span>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
