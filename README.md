@@ -10,7 +10,22 @@
 
 ---
 
-## 一、部署到 GitHub Pages
+## 一、部署状态
+
+✅ 已上线。仓库 `majuzi123/majuzi123.github.io`，分支 `main`，发布源 `/ (root)`。
+
+`username.github.io` 这类仓库 push 后 Pages 会自动启用，不需要手动配置发布源。
+本地远端已配置好（`origin` → `git@github.com:majuzi123/majuzi123.github.io.git`），更新流程：
+
+```bash
+git add . && git commit -m "更新内容" && git push
+```
+
+push 后约 45 秒线上生效。
+
+---
+
+## 二、从零重建（换机器时参考）
 
 ### 1. 创建仓库
 
@@ -44,7 +59,7 @@ git push -u origin main
 
 ---
 
-## 二、本地预览
+## 三、本地预览
 
 ```bash
 cd majuzi123.github.io
@@ -54,7 +69,7 @@ python3 -m http.server 8000
 
 ---
 
-## 三、文件结构
+## 四、文件结构
 
 ```
 index.html                  全部内容与结构（唯一需要改的文件）
@@ -88,7 +103,7 @@ git add . && git commit -m "更新内容" && git push
 
 ---
 
-## 四、双语是怎么工作的
+## 五、双语是怎么工作的
 
 可切换的文案写两份，用 `lang` 属性区分：
 
@@ -102,7 +117,7 @@ CSS 根据 `<html lang="...">` 决定显示哪一份，侧栏右上角按钮切�
 
 ---
 
-## 五、可选的完善项
+## 六、可选的完善项
 
 ### 1. 加一张头像
 
@@ -136,7 +151,7 @@ qlmanage -t -s 1200 -o . assets/img/og-card.svg
 
 ---
 
-## 六、设计说明
+## 七、设计说明
 
 - **布局**：372px sticky 侧栏 + 内容面板的双栏，窄屏自动堆叠为单栏
 - **字体**：标题衬线（Iowan Old Style / Palatino），正文无衬线（IBM Plex Sans → Avenir Next → PingFang SC）
