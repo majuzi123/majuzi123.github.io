@@ -78,7 +78,6 @@ assets/js/main.js           中英切换、深浅色、目录高亮、滚动动�
 assets/img/favicon.svg      网站图标
 assets/img/og-card.svg      分享卡片源文件
 assets/img/og-card.png      分享卡片（1200×630，社交平台预览用）
-assets/files/MaBo-CV.pdf    简历 PDF（页脚链接指向它）
 ```
 
 改完后：

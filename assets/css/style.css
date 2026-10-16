@@ -619,7 +619,7 @@ a.contact-row:hover {
   gap: 0.75rem;
 }
 
-.publication-card-link {
+.pub-card {
   display: flex;
   gap: 1.05rem;
   padding: 1.05rem 1.15rem;
@@ -631,7 +631,7 @@ a.contact-row:hover {
     border-color 0.25s var(--ease);
 }
 
-.publication-card-link:hover {
+.pub-card:hover {
   color: var(--ink);
   border-color: var(--accent);
   box-shadow: var(--shadow-sm);
@@ -677,6 +677,18 @@ a.contact-row:hover {
   letter-spacing: 0.015em;
 }
 
+.pub-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pub-title a:hover {
+  color: var(--accent-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
 .pub-title .arrow {
   display: inline-block;
   margin-left: 0.3rem;
@@ -686,7 +698,7 @@ a.contact-row:hover {
   transition: all 0.22s var(--ease);
 }
 
-.publication-card-link:hover .pub-title .arrow {
+.pub-card:hover .pub-title .arrow {
   opacity: 0.6;
   transform: none;
 }
@@ -712,6 +724,11 @@ a.contact-row:hover {
   margin-right: 0.3rem;
 }
 
+.pub-venue .tag-inline--author {
+  background: var(--accent);
+  color: #fff;
+}
+
 .link-row {
   display: flex;
   flex-wrap: wrap;
@@ -730,6 +747,10 @@ a.contact-row:hover {
   font-size: 12px;
   color: var(--muted);
   transition: all 0.2s var(--ease);
+}
+
+a.chip-link {
+  text-decoration: none;
 }
 
 .chip-link:hover {
@@ -1005,7 +1026,7 @@ a.contact-row:hover {
     margin-left: 0;
     width: 100%;
   }
-  .publication-card-link {
+  .pub-card {
     gap: 0.8rem;
   }
   .pub-thumb {
