@@ -24,7 +24,13 @@
     }
   }
 
-  /* ---------- 1. Theme ---------- */
+  /* ---------- 1. Title ---------- */
+  var TITLES = {
+    zh: '马搏 Bo Ma · 移动端自动化测试 / 大模型质量效能',
+    en: 'Bo Ma · Mobile Testing Automation / LLM for Quality Engineering'
+  };
+
+  /* ---------- 2. Theme ---------- */
   var themeToggle = document.getElementById('themeToggle');
 
   function applyTheme(theme) {
@@ -47,7 +53,7 @@
     });
   }
 
-  /* ---------- 2. Language ---------- */
+  /* ---------- 3. Language ---------- */
   var langToggle = document.getElementById('langToggle');
   var langLabel = document.getElementById('langLabel');
 
@@ -60,10 +66,7 @@
         lang === 'zh' ? 'Switch to English' : '切换为中文'
       );
     }
-    document.title =
-      lang === 'zh'
-        ? '马搏 Bo Ma · 测试开发 / 质量效能工程师'
-        : 'Bo Ma · Test Development / Quality Engineering';
+    document.title = TITLES[lang] || TITLES.zh;
   }
 
   applyLang(read(STORE.lang, 'zh'));
@@ -76,38 +79,12 @@
     });
   }
 
-  /* ---------- 3. Sticky nav state ---------- */
-  var nav = document.getElementById('nav');
-  var onScroll = function () {
-    if (nav) nav.classList.toggle('is-stuck', window.scrollY > 12);
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  /* ---------- 4. Mobile menu ---------- */
-  var burger = document.getElementById('navBurger');
-  var navLinks = document.getElementById('navLinks');
-
-  if (burger && navLinks) {
-    burger.addEventListener('click', function () {
-      var open = navLinks.classList.toggle('is-open');
-      burger.setAttribute('aria-expanded', String(open));
-    });
-
-    navLinks.addEventListener('click', function (e) {
-      if (e.target.closest('a')) {
-        navLinks.classList.remove('is-open');
-        burger.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
-
-  /* ---------- 5. Active section highlight ---------- */
+  /* ---------- 4. Sidebar contents highlight ---------- */
   var sections = Array.prototype.slice.call(
-    document.querySelectorAll('main section[id]')
+    document.querySelectorAll('.content > .section[id]')
   );
   var links = Array.prototype.slice.call(
-    document.querySelectorAll('.nav__links a')
+    document.querySelectorAll('#sideNav a')
   );
 
   if ('IntersectionObserver' in window && sections.length && links.length) {
@@ -117,24 +94,19 @@
           if (!entry.isIntersecting) return;
           var id = entry.target.getAttribute('id');
           links.forEach(function (a) {
-            a.classList.toggle(
-              'is-active',
-              a.getAttribute('href') === '#' + id
-            );
+            a.classList.toggle('is-active', a.getAttribute('href') === '#' + id);
           });
         });
       },
-      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+      { rootMargin: '-15% 0px -70% 0px', threshold: 0 }
     );
     sections.forEach(function (s) {
       observer.observe(s);
     });
   }
 
-  /* ---------- 6. Scroll reveal ---------- */
-  var items = Array.prototype.slice.call(
-    document.querySelectorAll('.reveal')
-  );
+  /* ---------- 5. Scroll reveal ---------- */
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
 
   if ('IntersectionObserver' in window) {
     var revealObserver = new IntersectionObserver(
@@ -145,7 +117,7 @@
           obs.unobserve(entry.target);
         });
       },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+      { rootMargin: '0px 0px -6% 0px', threshold: 0.06 }
     );
     items.forEach(function (el) {
       revealObserver.observe(el);
@@ -155,8 +127,4 @@
       el.classList.add('is-in');
     });
   }
-
-  /* ---------- 7. Footer year ---------- */
-  var year = document.getElementById('year');
-  if (year) year.textContent = String(new Date().getFullYear());
 })();
