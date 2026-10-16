@@ -59,17 +59,17 @@
 
   function applyLang(lang) {
     root.setAttribute('lang', lang);
-    if (langLabel) langLabel.textContent = lang === 'zh' ? 'EN' : '中';
+    if (langLabel) langLabel.textContent = lang === 'zh' ? 'EN' : '中文';
     if (langToggle) {
       langToggle.setAttribute(
         'aria-label',
         lang === 'zh' ? 'Switch to English' : '切换为中文'
       );
     }
-    document.title = TITLES[lang] || TITLES.zh;
+    document.title = TITLES[lang] || TITLES.en;
   }
 
-  applyLang(read(STORE.lang, 'zh'));
+  applyLang(read(STORE.lang, 'en'));
 
   if (langToggle) {
     langToggle.addEventListener('click', function () {

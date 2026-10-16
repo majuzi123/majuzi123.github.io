@@ -112,7 +112,14 @@ git add . && git commit -m "更新内容" && git push
 
 CSS 根据 `<html lang="...">` 决定显示哪一份，侧栏右上角按钮切换，选择记在浏览器本地。
 
-**新增中文文案记得补一份英文**，否则切到 EN 会缺内容。论文标题本身是英文，不需要写两份。
+**默认语言是英文。** 首次访问（无本地记录）进英文页，按钮显示「中文」，点一下切中文、按钮变成「EN」。
+
+要改成默认中文，改三处：
+- `index.html` 的 `<html lang="en">` → `zh`
+- `index.html` head 里防闪烁脚本的 `localStorage.getItem('bm-lang') || 'en'` → `'zh'`
+- `assets/js/main.js` 的 `applyLang(read(STORE.lang, 'en'))` → `'zh'`
+
+**新增中文文案记得补一份英文**，否则切到 EN 会缺内容（反过来同理）。论文标题本身是英文，不需要写两份。
 
 ---
 
