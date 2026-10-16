@@ -105,7 +105,34 @@
     });
   }
 
-  /* ---------- 5. Scroll reveal ---------- */
+  /* ---------- 5b. Live GitHub stars ----------
+     HTML 里已写好兜底数字（291 ★），请求失败或触发 GitHub 未认证限流
+     （60 次/小时/IP）时保持原样，不会显示空白或 0。
+
+     注：PyPI 没有公开的「累计下载量」接口，pypistats 各口径差异很大
+     （kea2 约 451、kea2-python 约 22K），不可信，因此 Downloads 保持手写。 */
+  (function () {
+    var el = document.querySelector('[data-stat="stars"]');
+    if (!el || !('fetch' in window)) return;
+
+    fetch('https://api.github.com/repos/ecnusse/Kea2', {
+      headers: { Accept: 'application/vnd.github+json' }
+    })
+      .then(function (res) {
+        return res.ok ? res.json() : Promise.reject(new Error(res.status));
+      })
+      .then(function (data) {
+        var n = data && data.stargazers_count;
+        if (typeof n === 'number' && n > 0) {
+          el.textContent = n + ' ★';
+        }
+      })
+      .catch(function () {
+        /* 用兜底数字 */
+      });
+  })();
+
+  /* ---------- 6. Scroll reveal ---------- */
   var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
 
   if ('IntersectionObserver' in window) {
